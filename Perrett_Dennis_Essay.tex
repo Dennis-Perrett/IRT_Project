@@ -1,0 +1,926 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  man,floatsintext]{apa6}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+% Make \paragraph and \subparagraph free-standing
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+\ifLuaTeX
+\usepackage[bidi=basic]{babel}
+\else
+\usepackage[bidi=default]{babel}
+\fi
+\babelprovide[main,import]{english}
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+% Manuscript styling
+\usepackage{upgreek}
+\captionsetup{font=singlespacing,justification=justified}
+
+% Table formatting
+\usepackage{longtable}
+\usepackage{lscape}
+% \usepackage[counterclockwise]{rotating}   % Landscape page setup for large tables
+\usepackage{multirow}		% Table styling
+\usepackage{tabularx}		% Control Column width
+\usepackage[flushleft]{threeparttable}	% Allows for three part tables with a specified notes section
+\usepackage{threeparttablex}            % Lets threeparttable work with longtable
+
+% Create new environments so endfloat can handle them
+% \newenvironment{ltable}
+%   {\begin{landscape}\centering\begin{threeparttable}}
+%   {\end{threeparttable}\end{landscape}}
+\newenvironment{lltable}{\begin{landscape}\centering\begin{ThreePartTable}}{\end{ThreePartTable}\end{landscape}}
+
+% Enables adjusting longtable caption width to table width
+% Solution found at http://golatex.de/longtable-mit-caption-so-breit-wie-die-tabelle-t15767.html
+\makeatletter
+\newcommand\LastLTentrywidth{1em}
+\newlength\longtablewidth
+\setlength{\longtablewidth}{1in}
+\newcommand{\getlongtablewidth}{\begingroup \ifcsname LT@\roman{LT@tables}\endcsname \global\longtablewidth=0pt \renewcommand{\LT@entry}[2]{\global\advance\longtablewidth by ##2\relax\gdef\LastLTentrywidth{##2}}\@nameuse{LT@\roman{LT@tables}} \fi \endgroup}
+
+% \setlength{\parindent}{0.5in}
+% \setlength{\parskip}{0pt plus 0pt minus 0pt}
+
+% Overwrite redefinition of paragraph and subparagraph by the default LaTeX template
+% See https://github.com/crsh/papaja/issues/292
+\makeatletter
+\renewcommand{\paragraph}{\@startsection{paragraph}{4}{\parindent}%
+  {0\baselineskip \@plus 0.2ex \@minus 0.2ex}%
+  {-1em}%
+  {\normalfont\normalsize\bfseries\itshape\typesectitle}}
+
+\renewcommand{\subparagraph}[1]{\@startsection{subparagraph}{5}{1em}%
+  {0\baselineskip \@plus 0.2ex \@minus 0.2ex}%
+  {-\z@\relax}%
+  {\normalfont\normalsize\itshape\hspace{\parindent}{#1}\textit{\addperi}}{\relax}}
+\makeatother
+
+% \usepackage{etoolbox}
+\makeatletter
+\patchcmd{\HyOrg@maketitle}
+  {\section{\normalfont\normalsize\abstractname}}
+  {\section*{\normalfont\normalsize\abstractname}}
+  {}{\typeout{Failed to patch abstract.}}
+\patchcmd{\HyOrg@maketitle}
+  {\section{\protect\normalfont{\@title}}}
+  {\section*{\protect\normalfont{\@title}}}
+  {}{\typeout{Failed to patch title.}}
+\makeatother
+
+\usepackage{xpatch}
+\makeatletter
+\xapptocmd\appendix
+  {\xapptocmd\section
+    {\addcontentsline{toc}{section}{\appendixname\ifoneappendix\else~\theappendix\fi\\: #1}}
+    {}{\InnerPatchFailed}%
+  }
+{}{\PatchFailed}
+\keywords{keywords\newline\indent Word count: X}
+\usepackage{csquotes}
+\usepackage[document]{ragged2e}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Sexual Compulsivity Scale Analysis},
+  pdfauthor={Dennis Perrett1 \& Stefano Noventa},
+  pdflang={en-EN},
+  pdfkeywords={keywords},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Sexual Compulsivity Scale Analysis}
+\author{Dennis Perrett\textsuperscript{1} \& Stefano Noventa\textsuperscript{}}
+\date{}
+
+
+\shorttitle{SCS Analysis}
+
+\authornote{
+
+The authors made the following contributions. Stefano Noventa: Supervision.
+
+}
+
+\affiliation{\vspace{0.5cm}\textsuperscript{1} University of Tübingen}
+
+\begin{document}
+\maketitle
+
+\justifying
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+Sexual compulsivity (SC) is a disproportionate fixation on sexual desires. People with SC often find it difficult to control their sexual actions or desires (Mayo-Clinic, 2022). Studies by McBride, Reece, and Sanders (2008) found that sexual compulsivity can detrimentally impact social relations as the sufferer's hyper-fixation on sexual desires emotionally distances them from their peers; extreme stress and anxiety are common among people with high SC as they deal with the threat of discovery; SC can and does lead to risky sexual behaviour resulting in physical health consequences; and that Financial and legal consequences stem from dealing with sex workers and other non-legal sexual activities such as exhibitionism and rape. The similar, yet distinct, sexual addiction, and variants thereof, have failed to be recognised as mental disorders by the American Psychiatric Association (Health.usnews.com, 2010). Based on the idea that focussing on sexual behaviours can stigmatise and marginalise non-traditional sexual habits, Levine and Troiden (1988) questioned whether hypersexuality should be discussed at all. In 2018, contrary to the beliefs of Levine and Troiden (1988), the ICD-11 defined SC as a new mental condition. SC in contrast to hypersexuality and sexual addiction, focuses on the ability to control sexual desires, and the impact sexual desires have on one's state of being, rather than which desires and their strength(s) may be present in a person (Levine \& Troiden, 1988). As a newly defined condition, its usage in diagnostic settings hinges on the ability to reliably measure the SC.
+
+\hypertarget{sexual-compulsivity-scale}{%
+\section{Sexual Compulsivity Scale}\label{sexual-compulsivity-scale}}
+
+The Sexual Compulsivity Scale (SCS) developed by Kalichman and Rompa (2001) is a proposed measure of Sexual Compulsivity. The scale consists of 10 likert-scale type statements in which a person indicates how much this statement describes or relates to them. The SCS is designed to measure two factors: hypersexuality and sexual preoccupation. The items are answered on a scale from 1 (not at all like me) to 4 (very much like me). A total score is calculated by summing each individual answer, ranging from 10 to 40.
+
+\begin{table}[H]
+\centering\begingroup\fontsize{7}{9}\selectfont
+
+\resizebox{\linewidth}{!}{
+\begin{tabular}{lllll}
+\toprule
+Items &  &  &  & \\
+\midrule
+Q1: My sexual appetite has gottenin the wayof my relationships. & 1. Not like me at all & 2. Slightly like me & 3. Mainly like me & 4. Very much like me\\
+Q2: My sexual thoughts and behaviors are causing problems in my life. & 1. Not like me at all & 2. Slightly like me & 3. Mainly like me & 4. Very much like me\\
+Q3: My desires to have sex havedisruptedmy daily life. & 1. Not like me at all & 2. Slightly like me & 3. Mainly like me & 4. Very much like me\\
+Q4: I sometimes fail to meet my commitments and responsibilities
+
+ because of my sexual behaviors. & 1. Not like me at all & 2. Slightly like me & 3. Mainly like me & 4. Very much like me\\
+Q5: I sometimes get so horny I could lose control. & 1. Not like me at all & 2. Slightly like me & 3. Mainly like me & 4. Very much like me\\
+\addlinespace
+Q6: I find myself thinking about sex while at work. & 1. Not like me at all & 2. Slightly like me & 3. Mainly like me & 4. Very much like me\\
+Q7: I feel that sexual thoughts and feelings are stronger than I am. & 1. Not like me at all & 2. Slightly like me & 3. Mainly like me & 4. Very much like me\\
+Q8: I have to struggle to control my sexual thoughts and behavior. & 1. Not like me at all & 2. Slightly like me & 3. Mainly like me & 4. Very much like me\\
+Q9: I think about sex more thanI would liketo. & 1. Not like me at all & 2. Slightly like me & 3. Mainly like me & 4. Very much like me\\
+Q10: It has been difficult for me to find sex partners who desire having sex as much as I want to. & 1. Not like me at all & 2. Slightly like me & 3. Mainly like me & 4. Very much like me\\
+\bottomrule
+\multicolumn{5}{l}{\rule{0pt}{1em}\textit{Table 1}}\\
+\multicolumn{5}{l}{\rule{0pt}{1em}Items and possible responses of the Sexual Compulsion Scale (Kalichman and Rompa, 2001).}\\
+\end{tabular}}
+\endgroup{}
+\end{table}
+
+The dataset given contains the responses of over 3000 \emph{self-reporting} individuals.
+
+The data are analysed under the Item Response Theory (IRT) framework to determine item characteristics and person abilities. The IRT approach is compared to a classical test theory approach, and dimensionality of the scale is validated. Additionally, Measurement Invariance and Differential Item Functioning are investigated. Finally, a polytomous model is used and the fit analysed.
+
+R (Version 4.1.2; R Core Team, 2021) and the R-packages \emph{difR} (Version 5.1; Magis, Beland, Tuerlinckx, \& De Boeck, 2010), \emph{eRm} (Version 1.0.2; Mair, Hatzinger, \& Maier, 2021), \emph{lavaan} (Version 0.6.9; Rosseel, 2012), \emph{lme4} (Version 1.1.27.1; Bates, Mächler, Bolker, \& Walker, 2015), \emph{ltm} (Version 1.2.0; Rizopoulos, 2006), \emph{mirt} (Version 1.36.1; Chalmers, 2012), \emph{papaja} (Version 0.1.0.9999; Aust \& Barth, 2022), \emph{semTools} (Version 0.5.5; Jorgensen, Pornprasertmanit, Schoemann, \& Rosseel, 2022), \emph{sirt} (Version 3.11.21; Robitzsch, 2022), \emph{TAM} (Version 4.0.16; Robitzsch, Kiefer, \& Wu, 2022), and \emph{tinylabels} (Version 0.2.3; Barth, 2022) were used for all analyses.
+
+\hypertarget{analysis}{%
+\section{Analysis}\label{analysis}}
+
+\hypertarget{preprocessing}{%
+\subsection{Preprocessing}\label{preprocessing}}
+
+The data available for analysis are relatively clean. Remaining obstacles include missing data, and non-binary data in the response submitted as gender. A table of descriptive statistics is provided below. Note the maximum age, the range of the gender variable, and the minimums for the items Q1 to Q10.
+
+\tiny
+\begin{table}[H]
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}{lrrrrrrrrrrrrr}
+\toprule
+  & vars & n & mean & sd & median & trimmed & mad & min & max & range & skew & kurtosis & se\\
+\midrule
+Q1 & 1 & 3376 & 2.306280 & 1.0939980 & 2 & 2.263508 & 1.4826 & 0 & 4 & 4 & 0.2464834 & -1.1790013 & 0.0188285\\
+Q2 & 2 & 3376 & 2.225119 & 1.0794937 & 2 & 2.162472 & 1.4826 & 0 & 4 & 4 & 0.3299824 & -1.1036684 & 0.0185789\\
+Q3 & 3 & 3376 & 2.220083 & 1.0915810 & 2 & 2.158401 & 1.4826 & 0 & 4 & 4 & 0.3406539 & -1.0999096 & 0.0187869\\
+Q4 & 4 & 3376 & 1.934242 & 1.0449741 & 2 & 1.801258 & 1.4826 & 0 & 4 & 4 & 0.7278779 & -0.6485502 & 0.0179847\\
+Q5 & 5 & 3376 & 2.235782 & 1.1224731 & 2 & 2.174685 & 1.4826 & 0 & 4 & 4 & 0.3405339 & -1.2173442 & 0.0193186\\
+\addlinespace
+Q6 & 6 & 3376 & 3.085012 & 0.9907127 & 3 & 3.207624 & 1.4826 & 0 & 4 & 4 & -0.7444556 & -0.4565155 & 0.0170509\\
+Q7 & 7 & 3376 & 2.189870 & 1.0792718 & 2 & 2.120651 & 1.4826 & 0 & 4 & 4 & 0.3347143 & -1.0938559 & 0.0185750\\
+Q8 & 8 & 3376 & 2.287026 & 1.0988036 & 2 & 2.241673 & 1.4826 & 0 & 4 & 4 & 0.2255926 & -1.1875170 & 0.0189112\\
+Q9 & 9 & 3376 & 2.454680 & 1.1731649 & 2 & 2.453368 & 1.4826 & 0 & 4 & 4 & -0.0000723 & -1.3859709 & 0.0201910\\
+Q10 & 10 & 3376 & 2.509183 & 1.1974931 & 3 & 2.517765 & 1.4826 & 0 & 4 & 4 & -0.0413255 & -1.4708861 & 0.0206097\\
+\addlinespace
+score & 11 & 3376 & 23.447275 & 7.8389836 & 23 & 23.227979 & 8.8956 & 0 & 40 & 40 & 0.1738374 & -0.8246057 & 0.1349145\\
+gender* & 12 & 3376 & 2.316943 & 0.4828529 & 2 & 2.270540 & 0.0000 & 1 & 4 & 3 & 0.8007658 & -0.7557492 & 0.0083102\\
+age & 13 & 3376 & 31.303317 & 20.3562887 & 28 & 29.631384 & 10.3782 & 14 & 999 & 985 & 32.0347819 & 1510.2681027 & 0.3503462\\
+\bottomrule
+\multicolumn{14}{l}{\rule{0pt}{1em}\textit{Table 2}}\\
+\multicolumn{14}{l}{\rule{0pt}{1em}Descriptive Statistics of the SCS dataset.}\\
+\end{tabular}}
+\end{table}
+\normalsize
+
+Complete and usable data are crucial when fitting models. Complete data allows statistical models to extract maximum information and reduce the need for assumptions. Missing values pose a particular problem as a lack of information, can still be considered valuable information.
+
+Accordingly, the analysis begins with determining how to handle missing and incorrect values. Analysis shows there are 161 responses out of roughly 3400 that contain missing and or incorrect values. Potential options include:
+
+\hypertarget{dropping-the-values}{%
+\paragraph{Dropping the values}\label{dropping-the-values}}
+
+Roughly 4.75\% of persons contain missing data. A simplistic option is to drop all persons not containing complete data from the analysis. Although a simple approach, a reduction in sample size results in a loss of power and inflated standard errors. The data set is quite large removing all non-complete persons would result in a data set with n \(\approx\) 3200.
+
+\hypertarget{data-imputation.}{%
+\paragraph{Data Imputation.}\label{data-imputation.}}
+
+Data imputation requires certain assumptions around why values are missing or incorrect, and what these incomplete values could and or should be filled with. An easy approach would be to investigate every person manually and make individual assumptions and changes. For example, with respect to age, it could be plausible to assign the outlier age of 999 to the mean or median age of all respondents.
+Regarding the non-binary gender we could assign them to a given gender, albeit for this, one would have to probably know the individual personally. Data imputation must be done with care, as any assumptions made now may have affect potential differential item functioning later in the analysis.
+
+\hypertarget{response-pattern-analysis}{%
+\subsection{Response Pattern Analysis}\label{response-pattern-analysis}}
+
+Below the raw (non-dichotimised) response pattern frequencies are plotted alongside the overall distribution of Sumscore. Note the increased frequencies of response patterns 1111111111 and 4444444444. Some spikes appear around response patterns 2222222222 and 3333333333, however these appear relatively minor.
+
+Outside of the already mentioned missing responses (0), the Sumscore distribution shows no significant signs of implausible results.
+
+\begin{figure}
+
+{\centering \includegraphics{Perrett_Dennis_Essay_files/figure-latex/responsepatterns-1} 
+
+}
+
+\caption{Frequency distributions of response patters and sumscores.}\label{fig:responsepatterns}
+\end{figure}
+
+Below, the counts of response patterns with identical responses is shown below, and shows that the peaks of 2 and 3 are negligible in comparison to 1 and 4.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lrrrrr}
+\toprule
+  & 0000000000 & 1111111111 & 2222222222 & 3333333333 & 4444444444\\
+\midrule
+Count & 3 & 60 & 5 & 7 & 73\\
+\bottomrule
+\multicolumn{6}{l}{\rule{0pt}{1em}\textit{Table 3}}\\
+\multicolumn{6}{l}{\rule{0pt}{1em}Frequencies of selected responses patterns.}\\
+\end{tabular}
+\end{table}
+
+While these peaks are not ideal, extreme response patterns contain little useful information for an IRT model and are, as a rule, removed from analysis. As such, response patterns 1 and 4 are non-issues as they will not be included in the final analysis. Response patterns 2 and 3 may introduce some bias to the analysis, however may also represent legitimate tendencies to answer items in accordance to these response patterns. As the count of response patterns 2 and 3 are minimal, altering these patterns may do more harm than good to the final parameter estimates.
+
+While highlighting some quirks in response patterns, this analysis does not show a need to make any changes to response pattern data.
+
+\hypertarget{incomplete-data}{%
+\subsection{Incomplete Data}\label{incomplete-data}}
+
+To conclude preprocessing, it must be decided how to handle the incomplete data. Sulis (2017) states there is a trade off between bias incurred by data imputation, and bias/loss of accuracy incurred by dropping incomplete data. Additionally, Rubin (1976) asserts that missing data is still data, and that a non-answer is still a communication in some form. When we decide how to treat the missing data, we are making an assumption about what is meant by a non-answer. The question then becomes what are the respondents saying? Can we ignore the decision making process behind a non-answer or not?
+
+To start, respondents that made no attempt to answer any question (response pattern 0000000000), can be dropped. There is not enough information to infer any meaning. Secondly, the SCS items are on a 1-4 likert-scale starting from ``Not like me at all'' to ``Very much like me''. This framing provides all test takers an appropriate answer. Because of this inclusive framing, a non-answer cannot represent a ``doesn't apply'' response, as this is included in the available options.
+
+It may be possible to interpret a missing item response as difficulty answering in which case data imputation may be appropriate. The following assumption could be made that item 9: ``I think about sex more than I would like to.'' is not the easiest question to answer in that first one has to decide how much they would like to think about sex. Item 5: ``I sometimes get so horny I could lose control.'' is perhaps a more easy to answer question, in that there is no \emph{secondary definition} to be made.
+
+Below the \emph{secondary definitions} are italicised for clarity:
+\tiny
+
+\begin{table}[H]
+\centering\begingroup\fontsize{7}{9}\selectfont
+
+\resizebox{\linewidth}{!}{
+\begin{tabular}{l}
+\toprule
+Q1: My sexual appetite has gotten *in the way* of my relationships.\\
+Q2: My sexual thoughts and behaviors are causing *problems* in my life.\\
+Q3: My desires to have sex have *disrupted* my daily life.\\
+Q4: I sometimes fail to meet my commitments and responsibilities because of my sexual behaviors.\\
+Q5: I sometimes get so horny I could lose control.\\
+\addlinespace
+Q6: I find myself thinking about sex while at work.\\
+Q7: I feel that sexual thoughts and feelings are stronger than I am.\\
+Q8: I have to struggle to control my sexual thoughts and behavior.\\
+Q9: I think about sex more than *I would like* to.\\
+Q10: It has been difficult for me to find sex partners who desire having sex as much as I want to.\\
+\bottomrule
+\multicolumn{1}{l}{\rule{0pt}{1em}\textit{Table 4}}\\
+\multicolumn{1}{l}{\rule{0pt}{1em}Items with potential 'secondary definitions'.}\\
+\end{tabular}}
+\endgroup{}
+\end{table}
+\normalsize
+
+Although plausible, the below plot doesn't reflect this line of thinking. One would expect items 1-3 \& 9 to have a higher level incomplete responses. This is not the case.
+
+\begin{figure}
+\centering
+\includegraphics{Perrett_Dennis_Essay_files/figure-latex/unnamed-chunk-5-1.pdf}
+\caption{\label{fig:unnamed-chunk-5}Count of missing responses per item.}
+\end{figure}
+
+While possible to use data imputation to correct for incomplete data, there is perhaps logical flaw associated with data imputation and IRT. IRT models, on a high level, are in essence data imputation models (Huisman \& Molenaar, 2001). The models use ability and difficulty (among other parameters) to predict how a given person with a given ability will answer a given item. In order to have this information, we first need to fit a model, for which we need data, which naturally leads us back to the beginning of this section.
+
+However, Sulis (2017) asserts that ``in an IRT framework, discarding all partially observed units is not generally recommended (the default solution automatically adopted by many statistical packages) even when the missing data mechanism is ignorable (i.e., MCAR and MAR)''. Here, Sulis refers to the reason something is missing (Missing At Random, Missing Completely At Random).
+
+Missingness is analysed with respect to item, age groups, and gender. No evidence to suggest data is not missing at random was evident. As such, there is no information lost by dropping the values, just a minor loss in efficiency. The below plot shows the change in average Standard errors for all difficulty parameters, as well as their convergence paths with respect to sample size.
+
+\begin{figure}
+\centering
+\includegraphics{Perrett_Dennis_Essay_files/figure-latex/unnamed-chunk-7-1.pdf}
+\caption{\label{fig:unnamed-chunk-7}Difficulty estimates and standard errors with respect to sample size.}
+\end{figure}
+
+Standard errors stabilise at around n=1000, and estimates vary only minimally. As our remaining (usable) sample size is roughly 3200, we can be confident that the removal of under 200 persons will have no discernible effect on parameter estimates.
+
+\hypertarget{preprocessing-conclusion}{%
+\subsection{Preprocessing Conclusion}\label{preprocessing-conclusion}}
+
+Prior to undertaking any IRT analysis, data were checked for incomplete entries and implausible response patterns. There was no evidence to suggest any pattern in the missing data. Implausible response patterns were either not found, or deemed acceptable. Extreme response patterns are naturally taken care of in most IRT packages, however these are additionally dropped from the data set. The total number of persons containing unusable data accounts for only a small fraction of the total data set and have little effect on parameter estimates and were subsequently dropped from the analysis.
+
+\hypertarget{dichotomisation}{%
+\section{Dichotomisation}\label{dichotomisation}}
+
+To fit a (binary response) IRT or CTT model, the item responses need to be in a binary format. The data provided in the data set are given in a non-binary format. As discussed in section 1, item responses are on a scale of 1 to 4. Understanding the meaning behind an answer is pivotal to effectively dichotomising data. Given the 1-4 scale, 3 options present themselves for dichotomising responses.
+
+The simplest method would be to split responses down the middle and code responses 1-2 as 0 and 3-4 as 1. This is supported by the structure of the responses ``not at all like me'', ``a little like me'', ``mostly like me'', and ``very much like me''. Responses ``not at all like me'' and ``a little like me'' both indicate that the statement provided by the item does not \emph{sufficiently} describe the person. In contrast, responses ``mostly \ldots{}'' and ``very much like me'' both indicate that the statement does accurately describe the person.
+
+A second option would be to split the responses on 1 as 0 and 2-4 as 1. Following the logic that responses with 1 do not describe the person \emph{at all}, where as 2-4 do in some form apply to the person. This option however does not appropriately reflect the strength of which a statement describes the person as both ``very much like me'' and ``a little like me'' would both be coded as a positive response.
+
+The third option is to dichotomise on 1-3 as a negative response, and 4 as a positive response. This approach holds some weight as this would only code only very strong agreement to a positive response. As the goal of the SCS is to identify persons with \emph{problematic} sexual compulsion, an strong argument can be made that this approach is valid. However, This approach also neglects the relevance of the response ``mostly like me'' as describing the person. With this in mind, a solid argument can also be made that a person responding with ``mostly like me'' to all items can and should be classed as someone with \emph{problematic} sexual compulsion.
+
+In an attempt to stay true to how a person would respond to a ``yes'' or ``no'' formatted item of the same content, the data have been dichotomised by coding 1 and 2 to a negative response (0), and 3 and 4 to a positive response (1).
+
+After recoding, the final sample size is 3215 persons.
+
+\hypertarget{biserial-and-point-biserial-correlations}{%
+\subsection{Biserial and Point-Biserial correlations}\label{biserial-and-point-biserial-correlations}}
+
+Displayed in the table below are the proportion of positive responses (Prop. Pos), the Point-Biserial Correlations (Point BC) and the Biserial Correlations (BC).
+
+\begin{table}[H]
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}{lrrrrrrrrrr}
+\toprule
+  & Q1 & Q2 & Q3 & Q4 & Q5 & Q6 & Q7 & Q8 & Q9 & Q10\\
+\midrule
+Prop. Pos & 0.4645 & 0.4338 & 0.4263 & 0.3093 & 0.4383 & 0.8250 & 0.4321 & 0.4734 & 0.5634 & 0.5819\\
+Point BC & 0.5962 & 0.6712 & 0.7128 & 0.6058 & 0.6226 & 0.3340 & 0.6784 & 0.7037 & 0.5203 & 0.4458\\
+BC & 0.7482 & 0.8453 & 0.8988 & 0.7943 & 0.7836 & 0.4922 & 0.8546 & 0.8825 & 0.6550 & 0.5630\\
+\bottomrule
+\multicolumn{11}{l}{\rule{0pt}{1em}\textit{Table 5}}\\
+\multicolumn{11}{l}{\rule{0pt}{1em}Proportion of positive responses, Point Biserial Correlations, and Biserial Correlations per item.}\\
+\end{tabular}}
+\end{table}
+
+Both the point-biserial and the biserial correlations calculate the strength of the relationship between an item and the overall Sumscore. The biserial correlation is used when the dichotomous variable is a true or discrete dichotomy and the biserial correlation is used with an artificial dichotomy. As the data have been manually dichomotised, biserial correlation takes precedence over the point biserial correlation.
+
+\begin{figure}
+\centering
+\includegraphics{Perrett_Dennis_Essay_files/figure-latex/unnamed-chunk-9-1.pdf}
+\caption{\label{fig:unnamed-chunk-9}Proportion of positive responses, point biserial correlations, and biserial correlations per item.}
+\end{figure}
+
+Naturally, both point biserial and biserial correlations follow the same pattern. The proportion of positive responses has a roughly inverse relationship to the correlations.
+
+The biserial correlation(s) measure how variation in the item responses relates to the variation in Sumscore. In some ways, the correlations can be seen as a measure of how well the item relates to the underlying candidate (``candidate'' because in this analysis it is yet unclear whether or not SCS is an appropriate measure of SC and whether or not Sumscore is an acceptable metric) latent variable. Biserial correlation(s) can be useful in determining miscoded responses. A negative correlation would suggest that an item is inversely-coded and may require correction. A zero correlation suggests that the item has no relation to the overall construct being measured. C.-Y. Li et al. (2018) suggests correlations larger than 0.3 measuruing the same construct.
+
+All items correlate highly enough (\textgreater0.3) with the Sumscore, with only item 6 getting close to a critically low correlation. No correlations suggest miscoded or incorrect data.
+Item 6 shows a low correlation, but a high proportion of positive responses. An item with a high rate of positive (or negative) responses contains comparatively less information on the Sumscore, in the same sense that asking if someone has a heart beat provides little information about their fitness level.
+
+\hypertarget{fitting-rasch-models}{%
+\subsection{Fitting Rasch Models}\label{fitting-rasch-models}}
+
+The Rasch Models are fit using the R Packages ltm(Version 1.2.0; Rizopoulos, 2006), mirt(Version 1.36.1; Chalmers, 2012), sirt(Version 3.11.21; Robitzsch, 2022), TAM(Version 4.0.16;Robitzsch, Kiefer, \& Wu, 2022), lavaan(Version 0.6.9; Rosseel, 2012) and eRm (Version 1.0.2; Mair, Hatzinger, \& Maier, 2021).
+
+A comparison of model estimates for the difficulty parameter is shown below.
+
+\tiny
+\begin{table}[H]
+\centering\begingroup\fontsize{7}{9}\selectfont
+
+\resizebox{\linewidth}{!}{
+\begin{tabular}{lrrrrrr}
+\toprule
+  & MIRT (MML) & TAM (MML) & Lavaan & LTM (MML) & SIRT (JML) & ERM (CML)\\
+\midrule
+Q6 & -2.4526525 & -2.4527889 & -2.5870713 & -2.2291560 & -2.4114117 & -2.3123599\\
+Q10 & -0.8197083 & -0.8197582 & -0.8591391 & -0.7380157 & -0.8270815 & -0.8259647\\
+Q9 & -0.7139632 & -0.7140072 & -0.7477118 & -0.6425055 & -0.7214435 & -0.7210404\\
+Q8 & -0.2017017 & -0.2017147 & -0.2103436 & -0.1812111 & -0.2054005 & -0.2055043\\
+Q1 & -0.1510289 & -0.1510387 & -0.1574293 & -0.1356631 & -0.1539314 & -0.1539925\\
+\addlinespace
+Q5 & 0.0000000 & 0.0000000 & 0.0000000 & 0.0000000 & 0.0000000 & 0.0000000\\
+Q2 & 0.0256752 & 0.0256769 & 0.0267207 & 0.0228599 & 0.0262530 & 0.0262406\\
+Q7 & 0.0355662 & 0.0355686 & 0.0370111 & 0.0319915 & 0.0363735 & 0.0363540\\
+Q3 & 0.0692652 & 0.0692698 & 0.0720566 & 0.0621034 & 0.0708841 & 0.0708298\\
+Q4 & 0.7864754 & 0.7865320 & 0.8124761 & 0.7050093 & 0.8200832 & 0.8111423\\
+\bottomrule
+\multicolumn{7}{l}{\rule{0pt}{1em}\textit{Table 6}}\\
+\multicolumn{7}{l}{\rule{0pt}{1em}Item difficulty estimates of respective models/estimation methods.}\\
+\end{tabular}}
+\endgroup{}
+\end{table}
+\normalsize
+
+We see both TAM and MIRT have near identical estimates. Lavaan and SIRT also produce very similar estimates. In constrast however, LTM produces similar, yet clearly distinct estimates. LTM, TAM, and MIRT take a maximum marginal likelihood (MML) approach to parameter estimation, and unlike other packages do not drop persons with extreme response patterns (all 1s or all 4s). MML also depends on additional statistical assumptions of the prior distribution holding (Johann Pfanzagl, 1994). Item difficulties will be very similar to the estimates of conditional ML if these assumptions hold. Although not identical, the CML estimates are quite similar to those of the TAM and MIRT, suggesting no major violations of assumptions.
+
+LTM produces estimates with the least variance across items. LTM takes in a constraint variable in which one input relates to the hypothetical (unfit) discrimination parameter. The discrimination parameter is set to one. The discrepancy in results suggests that the inclusion of a discrimination variable may result in a better fit. Interestingly, the LTM and TAM models show near identical AICs (30589.3438795926 and 30589.3539499619) and BICs (30653.7378035521 and 30653.7478739213), suggesting both models describe the data equally well. Because of this, further analysis will not include the LTM estimates unless otherwise stated.
+
+Inspecting the Item Characteristic Curves (ICCs) of the MIRT model, a range of curves can be seen. An ICC shows the probability of answering a given item as a function of person ability. In this 1 parameter analysis, there is no discrimination parameter involved, and as a result all ICCs have take the exact same form. ICCs are however shifted according to their difficulty. An ICC that is further left is less difficult than an item on the right. Item 6 is the easiest. This observation confirms to the classical approach above where it was discussed above that item 6 contains less information because it had a very high proportion of positive responses. Naturally, a high proportion of positive responses has a tendency to be reflected in a lower difficulty item.
+
+\begin{figure}
+\centering
+\includegraphics{Perrett_Dennis_Essay_files/figure-latex/ICCplotfunction-1.pdf}
+\caption{\label{fig:ICCplotfunction}ICCs of MIRT Rasch model fit.}
+\end{figure}
+
+Items pairs 2 \& 7, and 9 \& 10, and 1 \& 8, are very similar. An argument can be made that the extra items are superfluous however in later sections of this analysis, a 2 parameter model including a discrimination parameter will be fit. It is possible that upon introducing a discrimination parameter, the items will take very distinct forms.
+
+\hypertarget{item-fit}{%
+\section{Item Fit}\label{item-fit}}
+
+The fit of an individual item reports how well the parameters of a person and item determine the probability of answering an item correctly (or positively). Two major fit statistics are the infit and outfit. The infit relates to how accurate the probability of answering correctly is for persons whose ability is close to the difficulty of the item. The outfit relates to how accurate the model is for persons whose ability is far from being equal to the difficulty of the item. These statistics both take a very similar form, and as such are not expected necessarily to be drastically different.
+
+\begin{figure}
+
+{\centering \includegraphics{Perrett_Dennis_Essay_files/figure-latex/fitstats-1} 
+
+}
+
+\caption{Item infits and outfits, and 'significance' thresholds.}\label{fig:fitstats}
+\end{figure}
+
+Both infit and outfit are on the same scale. A fit of 1 is ideal. Dependent on the usage of the item/test (clinical, research, etc), different thresholds are recommended. If an item fit is within this threshold the fit is deemed acceptable. The standard fit threshold is between 0.7 and 1.3 and is represented above by the yellow area.
+
+The fit of each all items is acceptable to some degree. The outfits of items 3 and 8 (and to some degree 7) approach the lower limit of what would generally be deemed as acceptable. Given that the goal of the SCS is to determine whether or not a person suffers from sexual compulsion, one may default to the assumption that this the threshold to be used is the narrowest (0.8 - 1.2). However, because clinical tests are often used in conjunction with expert opinion, and may just be a method of justifying escalation and further diagnostics, generally the much more flexible threshold of 0.5 - 1.7 is used. According to this threshold, all items have an acceptable fit.
+
+Infit and outfit pairs can also indicate additional information not captured by the model (e.g.~special knowledge, miscodes etc). A table of these patterns is given online on the Rasch-website (2022). No given example patterns can be seen in the data, however, close infit/outfit pairs on either side of the ideal range can suggest high/low discrimination, perhaps signalling the need of a discrimination parameter in the model.
+
+\hypertarget{alternative-models}{%
+\section{Alternative Models}\label{alternative-models}}
+
+Within the IRT framework, models including a discrimination parameter, a guessing parameter, and an error parameter exist. Guessing and error parameters only become relevant in the event that there is a ``correct'' answer to the item. No items in the SCS have a correct answer, as the reponses indicate how well a statement describes a person. As a result, the guessing and error parameters are of little relevance (side note: it is plausible that due to the face validity of the test, and the self-selected sample of the dataset, that individuals may have attempted to ``guess'' a higher SC score. I make the assumption that this is not the case).
+
+Remaining for consideration is the discrimination parameter present in the 2PL or Birnbaum model (Birnbaum, 1968). The discrimination parameter incorporates how quickly a probability increases given the ability of person. As an example, the task ``clap'' may be near impossible to complete if the ability of a person is limited in that they only have one hand, however clapping is trivial for a person who possesses two hands (high discrimination). In contrast, a task such as ``hit the bullseye with a bow and arrow'' is difficult, yet largely equally possible for an expert as well as a beginner (low discrimination). Following this logic, a 2PL model may be a better fit for the SCS in comparison to the 1pl Rasch model.
+
+In order to compare, the MIRT package is used to fit a 2PL model.
+
+\begin{figure}
+
+{\centering \includegraphics{Perrett_Dennis_Essay_files/figure-latex/2PL-1} 
+
+}
+
+\caption{ICC plots of an MIRT 2PL model.}\label{fig:2PL}
+\end{figure}
+
+Under the Rasch model, item pairs 2 \& 7, and 9 \& 10, and 1 \& 8, were very similar. Under the 2PL model, we see that 2 \& 7 are still very similar, items 9 \& 10 have distinct curves and parameters, and items 1 \& 8 also have a moderate difference in discrimination. Items 6 and 10 have flatter ICCs, representing a lower discrimination. For item 6, this can likely be traced back to the high level of positive responses: if many people of answered positively, then it is more likely that a range of abilities answered this item positively, leading to low discrimination. The low discrimination for item 10 would imply a range of respondents answered this item positively.
+
+Additionally, the differences in difficulty estimates are relatively minor between the two models. Items 2,7 \& 3 show minor deviations.
+
+\begin{table}[H]
+\centering\begingroup\fontsize{7}{9}\selectfont
+
+\begin{tabular}{lrrrrrrrrrr}
+\toprule
+  & Q6 & Q10 & Q9 & Q8 & Q1 & Q5 & Q2 & Q7 & Q3 & Q4\\
+\midrule
+Rasch.Dif & -2.452653 & -0.8197083 & -0.7139632 & -0.2017017 & -0.1510289 & 0.0000000 & 0.0256752 & 0.0355662 & 0.0692652 & 0.7864754\\
+2PL.Dif & -1.855406 & -0.5586811 & -0.5066620 & -0.0061725 & 0.0000000 & 0.1603177 & 0.2549021 & 0.2716926 & 0.3671465 & 1.0295811\\
+\bottomrule
+\multicolumn{11}{l}{\rule{0pt}{1em}\textit{Table 7}}\\
+\multicolumn{11}{l}{\rule{0pt}{1em}Difficulty Estimates of the Rasch model and the 2PL model.}\\
+\end{tabular}
+\endgroup{}
+\end{table}
+
+The low variation in discrimination estimates across models also indicates the appropriateness of a 2PL model. All things considered, there is good theoretical justification for a 2PL model.
+
+As the models are nested, they can be compared with the Likelihood Ratio Test (LRT). The result of the LRT strongly suggests the 2PL model is a better fit. Both the AIC and BIC support this conclusion.
+
+\begin{table}[H]
+\centering\begingroup\fontsize{7}{9}\selectfont
+
+\begin{tabular}{rrrrrrrr}
+\toprule
+AIC & SABIC & HQ & BIC & logLik & X2 & df & p\\
+\midrule
+33706.06 & 33736.93 & 33729.77 & 33771.88 & -16842.03 & NaN & NaN & NaN\\
+33082.96 & 33139.08 & 33126.05 & 33202.63 & -16521.48 & 641.1052 & 9 & 0\\
+\bottomrule
+\multicolumn{8}{l}{\rule{0pt}{1em}\textit{Table 8}}\\
+\multicolumn{8}{l}{\rule{0pt}{1em}Anova results between Rasch and 2PL models. Strongly suggests 2PL has a better fit.}\\
+\end{tabular}
+\endgroup{}
+\end{table}
+
+Additionally, the item fits generally improve. Item infit improves for all items, where as item outfit worsens for items 2,3 7 \& 8. These are however all still within the acceptable threshold for a clinical survey.
+
+\begin{figure}
+
+{\centering \includegraphics{Perrett_Dennis_Essay_files/figure-latex/unnamed-chunk-13-1} 
+
+}
+
+\caption{Side-by-side comparison of Rasch and 2PL models for item infits and outfits.}\label{fig:unnamed-chunk-13}
+\end{figure}
+
+With respect to the discrimination estimates, and the minimal changes in the difficult estimates, a 2 parameter model including a parameter for discrimination describes the data better. This conclusion is supported both by the item fits as well as the over all goodness of fit tests.
+
+\hypertarget{differential-item-functioning}{%
+\section{Differential Item Functioning}\label{differential-item-functioning}}
+
+Below, differential item functioning (DIF) for gender (focal group = gender 1) is investigated. Multiple DIF tests are employed, namely: Mantel-Haenszel, Standard, Logistic, Raju, TID, BD, Sibtest, and lord. The below table provides an overview of tests and flagged items.
+
+\tiny
+\begin{table}[H]
+\centering\begingroup\fontsize{7}{9}\selectfont
+
+\resizebox{\linewidth}{!}{
+\begin{tabular}{lllllllll}
+\toprule
+  & M-H & Stand. & Logistic & Raju & T.I.D. & BD & CSIBTEST & Lord\\
+\midrule
+Q1 & NoDIF & NoDIF & NoDIF & NoDIF & NoDIF & NoDIF & NoDIF & NoDIF\\
+Q2 & DIF & NoDIF & DIF & NoDIF & NoDIF & NoDIF & DIF & NoDIF\\
+Q3 & NoDIF & NoDIF & NoDIF & NoDIF & NoDIF & NoDIF & NoDIF & NoDIF\\
+Q4 & NoDIF & NoDIF & NoDIF & NoDIF & NoDIF & NoDIF & NoDIF & NoDIF\\
+Q5 & DIF & NoDIF & DIF & DIF & NoDIF & NoDIF & DIF & DIF\\
+\addlinespace
+Q6 & NoDIF & NoDIF & NoDIF & NoDIF & NoDIF & NoDIF & NoDIF & NoDIF\\
+Q7 & NoDIF & NoDIF & NoDIF & NoDIF & NoDIF & NoDIF & NoDIF & NoDIF\\
+Q8 & NoDIF & NoDIF & NoDIF & NoDIF & NoDIF & NoDIF & NoDIF & NoDIF\\
+Q9 & NoDIF & NoDIF & NoDIF & NoDIF & NoDIF & NoDIF & DIF & NoDIF\\
+Q10 & DIF & NoDIF & DIF & DIF & NoDIF & NoDIF & DIF & DIF\\
+\bottomrule
+\multicolumn{9}{l}{\rule{0pt}{1em}\textit{Table 9}}\\
+\multicolumn{9}{l}{\rule{0pt}{1em}Results of differential item functioning tests.}\\
+\end{tabular}}
+\endgroup{}
+\end{table}
+\normalsize
+
+Items 2, 5 and 10 were flagged in multiple tests. Item 9 was flagged only by the CSIB test. The Cross-SIB test is designed to capture DIF in items where ICCs cross, implying a discrimination parameter (Z. Li, 2020). The model analysed is the Rasch model with discrimination, allowing for little relevance for the CSIB test on its own.
+
+The ICCs of the flagged items are plotted on the following page alongside the Lord's \(\chi^2\).
+
+Item 5 especially shows significant DIF with the item being significantly harder for the focal group. The DIF for items 2 and 10, while significant, is not as severe as for item 5.
+
+Splitting the data on median age flagged items 1, 2, 5, 8 \& 10 for DIF in the majority of tests listed above. Again, however the ICCs were not drastically different.
+
+\begin{figure}
+\centering
+\includegraphics{Perrett_Dennis_Essay_files/figure-latex/dif2-1.pdf}
+\caption{\label{fig:dif2}Lords Chi2 test and associated DIF plots.}
+\end{figure}
+
+Interestingly, splitting the data into groups age \textgreater{} 60 and age \textless= 60, only item 2 is flagged as DIF by the majority of tests. Item 2 is ``My sexual thoughts and behaviors are causing problems in my life''. It is perhaps natural that an individual with more life experience will have better learned how to deal with their sexual urges. However, the inverse is true. Age 60+ was defined as the focal group, for which the item is shown to be easier (the item is true for persons in the group more often). It is plausible that at this age it may be more difficult to find sexual partners, leading to the results seen.
+
+A few more groups were tested for DIF but nothing interesting was found.
+
+\hypertarget{subfactors}{%
+\section{Subfactors}\label{subfactors}}
+
+Ballester-Arnal, Gómez-Martínez, Llario, and Salmerón-Sánchez (2013) suggest the SCS consists of two factors. The first factor representing an ``interference of sexual behaviour'' (items 1, 2, 3, 4 and 10) and the second factor representing a ``failure to control sexual impulses (items 5, 6, 7, 8 and 9). Factor analysis was undertaken by comparing the fit of a one factor model, two factor correlated trait model, a bifactor model, and a hierarchical model.
+
+\begin{table}[H]
+\centering\begingroup\fontsize{7}{9}\selectfont
+
+\resizebox{\linewidth}{!}{
+\begin{tabular}{lrllrrrr}
+\toprule
+  & Df & AIC & BIC & Chisq & Chisq diff & Df diff & Pr(>Chisq)\\
+\midrule
+BF.mod & 25 & NA & NA & 296.4770 & NA & NA & NA\\
+CT.mod & 34 & NA & NA & 408.0293 & 154.4703 & 9 & 0\\
+OF.mod & 35 & NA & NA & 1021.2870 & 302.1779 & 1 & 0\\
+\bottomrule
+\multicolumn{8}{l}{\rule{0pt}{1em}\textit{Table 10}}\\
+\multicolumn{8}{l}{\rule{0pt}{1em}Likelihood Ratio Test between One-Factor, Correlated Traits model, and Bifactor model. Results indicate Bifactor model has the best fit.}\\
+\end{tabular}}
+\endgroup{}
+\end{table}
+
+The Likelihood Ratio Test indicates a statistically significant best fit of the Bifactor model. However the increase in CFI of the Bifactor model over the correlated traits model is minimal (\textless{} 0.01), suggesting no real improvement. It is worth noting that the Bifactor model almost always tends to fit best, however this can be attributed to the structure of the model allowing for a certain degree of overfitting (SP Reise, 2016).
+
+\hypertarget{reliability-and-dimensionality}{%
+\section{Reliability and dimensionality}\label{reliability-and-dimensionality}}
+
+The above analysis shows that the Bifactor model with two subscales best describes the SCS data. This implies that the SCS is in fact not unidimensional, but rather two dimensional as suggested by Ballester-Arnal et al. (2013). With multidimensional data models, the item subsets (subscales) measure different and distinct constructs and are not interchangable. They might relate differently to something external, for example the understanding of ``problem'': around the world, expectations surrounding sex differ among cultures, what may be considered a problem is one part of the world, may not be considered a problem elsewhere. This could naturally lead to distinct implications for health policy and intervention etc. as there would be multiple ``driving forces'' to attack.
+
+If the data are multidimensional it is possible that the sum score is not measuring what it is intended to measure, because there are multiple subfactors being measured and the sum score may be aggregating them in a way which may not make sense.
+
+So this begs the question: Does the total scale actually measure what is intended? Or, does having subscales make sense? If subscales do make sense, do they explain enough (reliable) variance on their own after controlling for a general factor? Can this all be modeled by a uni-dimensional model, or do we need to have something more complex?
+
+Using the Bifactor model the percentage of uncontaminated correlations (PUC) has been calculated. These are the correlations that are not affected by multidimensionality. A PUC \textgreater{} .8 strongly indicates unidimensionality, if the PUC is below 0.8, other measures need to be employed.
+
+A hierarchical model presents no increase in fit over other tested models with respect to the change in CFI. The Percentage of Uncontaminated Correlations (PUC) indicates how much weight is to be placed on which measures of multidimensionality. The PUC for the bifactor model is equal to 0.55. That is, 55\% of items are not affected by multidimensionality. Rule of thumb suggests looking to other measures to determine the relevance of multidimensionality.
+
+The reliability of the Bifactor model is calculated via the \texttt{semTools::reliability(BF.mod)} function. Reliability (\(\omega_i\)) and Cronbach's Alpha for the model as a whole is very good, each \textgreater{} .7. Omegas for the subfactors do not have strong reliability, in some cases nearing 0. Differences in omegas represent alternative methods of calculation, each having their own strengths and weaknesses. Each Omega is calculated as a fraction, with only the denominator varying. The denominator is either based on residual variance (\(\omega_1\)), the model implied covariance (\(\omega_2\)), or the empirical covariance (\(\omega_3\)). (\(\omega_2\)) and (\(\omega_3\)) being very similar implies a good model fit.
+
+It is worth mentioning that it has been discussed by Rakov (1997) and M. R. Novick (1967) that Cronbach's Alpha is at best, equivalent to \(\omega_3\), and at worst, well off the true reliability of the test. Specifically, under the condition of \(\tau\)-equivalence (factor loadings being equal for all factors), Cronbach's alpha is equivalent to \(\omega_3\), outside of this situation, Cronbach's alpha does not accurately reflect the reliability of the test. Cronbachs alpha and \(\omega_3\) are decently similar for the general factor of the bifactor model, suggesting relatively equal factor loadings. However this breaks down for subfactors one and two. It was mentioned above that in a bifactor model, the general factor often acts as a type of ``garbage collector'' (SP Reise, 2016), leading to an overfit. As the reliabilities for factors 1 and 2 are very low, it may be wise to further investigate the fit of the bifactor model, as factors 1 and 2 do not appear to be reliably measuring the desired latent traits.
+
+\begin{longtable}{lrrr}
+\toprule
+  & GF & F1 & F2\\
+\midrule
+alpha & 0.8963455 & 0.8300492 & 0.8403768\\
+alpha.ord & 0.9223600 & 0.8715288 & 0.8813895\\
+omega & 0.8034528 & 0.3319737 & 0.0283350\\
+omega2 & 0.8426124 & 0.2151339 & 0.0092263\\
+omega3 & 0.8470939 & 0.2173733 & 0.0092414\\
+\addlinespace
+avevar & NA & NA & NA\\
+\bottomrule
+\multicolumn{4}{l}{\rule{0pt}{1em}\textit{Table 11}}\\
+\multicolumn{4}{l}{\rule{0pt}{1em}Reliability measures of the Bifactor model.}\\
+\end{longtable}
+
+\hypertarget{subfactors-and-item-10}{%
+\section{Subfactors and Item 10}\label{subfactors-and-item-10}}
+
+An alternative interpretation of the subfactors ``interference of sexual behaviour'' (items 1, 2, 3, 4 and 10) and ``failure to control sexual impulses (items 5, 6, 7, 8 and 9) could be \emph{external} (Visible to others) and \emph{internal} (not visible to others), respectively. The items are listed explicitly below:
+
+\tiny
+\begin{table}[H]
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}{l}
+\toprule
+\underline{\textbf{External}}\\
+Q1: My sexual appetite has gotten in the way of my relationships.\\
+Q2: My sexual thoughts and behaviors are causing problems in my life.\\
+Q3: My desires to have sex have disrupted my daily life.\\
+Q4: I sometimes fail to meet my commitments and responsibilities because of my sexual behaviors.\\
+\addlinespace
+Q10: It has been difficult for me to find sex partners who desire having sex as much as I want to.\\
+\underline{\textbf{Internal}}\\
+Q5: I sometimes get so horny I could lose control.\\
+Q6: I find myself thinking about sex while at work.\\
+Q7: I feel that sexual thoughts and feelings are stronger than I am.\\
+\addlinespace
+Q8: I have to struggle to control my sexual thoughts and behavior.\\
+Q9: I think about sex more than I would like to.\\
+\bottomrule
+\multicolumn{1}{l}{\rule{0pt}{1em}\textit{Table 12}}\\
+\multicolumn{1}{l}{\rule{0pt}{1em}Hypothesised subfactor items of the SCS}\\
+\end{tabular}}
+\end{table}
+
+\normalsize
+
+From a conceptual point of view, Item 10 could very well fit into both categories. This item can be interpreted in two ways, and as such, one could argue that the appropriate subscale depends on the interpretation.
+
+One interpretation is that the respondent simply \emph{feels} it has been difficult to find partners due to sexual appetite. Perhaps any perceived difficulty has improperly been blamed on sexual appetite, rather than potential physical and social attractiveness.
+
+A second interpretation, which is somewhat problematic, is that the sexual appetite does in fact make it difficult to find a sexual partner - in which case this item becomes nearly synonymous with Item 1.
+
+Fit measures suggest item 10 loading on factor 2 (``internal'' factor) produces a marginally better model fit (\(\Delta\)CFI = 0.997 - 0.995 = 0.002). This increase in model fit is only very marginal, again highlighting the difficulty in assigning the item to a factor. Other models that produce acceptable fits include models that load item 10 onto a 3rd separate factor.
+
+Ultimately, it may be best to reconsider the wording of item 10. A clearer and more objective question may result in more universal interpretation and therefore a clearly answer with regard to subfactors.
+
+\hypertarget{measurement-invariance}{%
+\section{Measurement Invariance}\label{measurement-invariance}}
+
+To complete the robustness analysis of the proposed models, measurement invariance (MI) at the age (split on median age) and gender levels was tested. MI is in essence the latent trait model (with lavaan) approach to differential item functioning (discussed above). The same base model parameters are restricted step-wise and tested against the preceding model. If the preceding (more flexible) model shows no measurable improvement over the restricted model then it is assumed that measurement invariance holds (for the tested restriction).
+
+The steps followed were, (1) configural invariance, (2) metric invariance by setting the factors loadings to be equal across groups, and finally (3) scalar invariance by setting factor loadings and intercepts to be equal across groups. Splitting the data on gender results in unequal sample sizes. Chen (2007) suggests significance thresholds for \(\Delta CFI \geq -0.01\) and \(\Delta RMSEA \leq 0.010\) for unequal sample sizes. The table with fit indices is shown below.
+
+\begin{table}[H]
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}{lrrrrrrrr}
+\toprule
+  & chisq.scaled & df.scaled & pvalue.scaled & rmsea.scaled & cfi.scaled & tli.scaled & delta.rmsea & delta.cfi\\
+\midrule
+Baseline & 218.4950 & 48 & 0 & 0.0470213 & 0.9957038 & 0.9919446 & NA & NA\\
+Loadings & 397.0979 & 65 & 0 & 0.0563944 & 0.9916316 & 0.9884130 & 0.0093731 & -0.0040722\\
+Thresholds + Loadings & 603.6484 & 82 & 0 & 0.0629277 & 0.9868553 & 0.9855728 & 0.0065333 & -0.0047763\\
+\bottomrule
+\multicolumn{9}{l}{\rule{0pt}{1em}\textit{Table 13}}\\
+\multicolumn{9}{l}{\rule{0pt}{1em}Fit measures of measurement invariant tests based on gender.}\\
+\end{tabular}}
+\end{table}
+
+The fit metrics indicate no significant fit changes per step. However the increases in fit measures are very near to the significance threshold. Comparing a model with fixed thresholds and loadings to the baseline model would suggest that the baseline model does in fact provide a significantly better fit to the data.
+
+Next, measurement invariance was checked at the age level. The data were split on median age. Despite splitting on median, the same sizes still resulted in unequal sample sizes due to the sheer number of people with the median age (28). As above, the fit measures are provided in a the table below.
+
+\begin{table}[H]
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}{lrrrrrrrr}
+\toprule
+  & chisq.scaled & df.scaled & pvalue.scaled & rmsea.scaled & cfi.scaled & tli.scaled & delta.rmsea & delta.cfi\\
+\midrule
+Baseline & 449.5688 & 48 & 0 & 0.0721637 & 0.9901262 & 0.9814866 & NA & NA\\
+Loadings & 407.3315 & 65 & 0 & 0.0572567 & 0.9915827 & 0.9883453 & -0.0149070 & 0.0014565\\
+Thresholds + Loadings & 586.0734 & 82 & 0 & 0.0618585 & 0.9876058 & 0.9863966 & 0.0046018 & -0.0039769\\
+\bottomrule
+\multicolumn{9}{l}{\rule{0pt}{1em}\textit{Table 14}}\\
+\multicolumn{9}{l}{\rule{0pt}{1em}Fit measures of measurement invariant tests based on median age.}\\
+\end{tabular}}
+\end{table}
+
+This time, fit measures suggest the equal loadings model provides a \emph{better} fit than the baseline. Although it makes little conceptual sense that a restricted model should describe the data better than an unrestricted model, both RMSEA and CFI, as well as many other fit indices, are functions that calculate a metric based on the trade off between model complexity and model fit. As such, both RMSEA and CFI suggest a better fit/complexity trade-off. In this case again, both CFI and RMSEA suggest an adequate fit of the fixed loadings and thresholds model. In summary, both models show measurement invariance at the scalar level.
+
+It is interesting to note that although measurement invariance and differential item functioning are based on the same conceptual idea, this analysis suggests contrary behaviour in the models fit. Above it was concluded that DIF is present for items 2, 5 and 10. However measurement invariance analysis suggests no such behaviour. This could well be attributed to the fact that as discussed above, the apparent DIF was minimal, and attributed directly to the items. In contrast, measurement invariance (fit measures) consider the model as a whole, rather than individual items. It may be that the minimal DIF seen above, was too little to affect the model fit at a higher level.
+
+\hypertarget{polytomous-model}{%
+\section{Polytomous Model}\label{polytomous-model}}
+
+In the final step of this analysis, the original data is fit with a polytomous model. The polytomous model allows for multi-response items, in contrast to binary responses. This model allows for finer understanding and modelling of the data, as binary responses are not always most appropriate. Every item in the SCS can be answered on a scale of 1-4, accordingly a graded response model makes sense. For consistency, the \texttt{MIRT} function \texttt{mirt(data,\ itemtype="graded")} was used to fit the model.
+
+\begin{table}[H]
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}{lrrrrrrrr}
+\toprule
+model & AIC & SABIC & HQ & BIC & logLik & X2 & df & p\\
+\midrule
+GRM & 72390.65 & 72506.57 & 72477.75 & 72633.67 & -36155.32 & NaN & NaN & NaN\\
+2PL & 33082.96 & 33139.08 & 33126.05 & 33202.63 & -16521.48 & 39267.6870 & 1047532 & 1\\
+Rasch & 33082.96 & 33139.08 & 33126.05 & 33202.63 & -16521.48 & 641.1052 & 9 & 0\\
+\bottomrule
+\multicolumn{9}{l}{\rule{0pt}{1em}\textit{Table 15}}\\
+\multicolumn{9}{l}{\rule{0pt}{1em}Anova comparison of 2PL, Rasch and Graded Response model.}\\
+\end{tabular}}
+\end{table}
+
+Comparison of the original Rasch model and 2PL models strongly suggests the polytomous model is a better fit. This is unsurprising as the polytomous model is able to leverage the explanatory power of the unaltered data.
+
+Below the traceplot for item 2 is displayed.
+
+\begin{figure}
+\centering
+\includegraphics{Perrett_Dennis_Essay_files/figure-latex/unnamed-chunk-19-1.pdf}
+\caption{\label{fig:unnamed-chunk-19}Item 2 ICCs for MIRT graded response model.}
+\end{figure}
+
+The traceplot displays an individual ICC for each possible response to the item. The mass beneath an ICC represents the information about the latent trait that is gained by a respondent answered a certain way. The peaks of the ICCs are situated with relatively equal distances between them, suggesting the item responses provide an effective measure for the latent trait.
+
+\hypertarget{conclusion}{%
+\section{Conclusion}\label{conclusion}}
+
+The SCS was investigated for model fit and robustness. This analysis shows that the SCS performs as intended as a measure for SC. Additionally multidimensionality and reliability were investigated. It was discussed that the SCS is best fit by a multidimensional model, however low reliability of the subfactors of the bifactor model was shown.
+
+Both differential item functioning (DIF) and measurement invariance (MI) were tested. Both analyses take different approaches to the same theoretical concept, and both showed somewhat similar results. Although some items behaved differently across groups, the differences in item behaviour were minimal and did not raise concern.
+
+Finally, a graded response model was fit to the SCS, which showed an improved fit over dichotomous variables. This is unsurprising as the SCS provides multiple responses per item, and as such a polytomous model best model response probabilities.
+Ultimately, the SCS was shown to be quite robust, however due to the low reliability of the subfactors of the best fitting bifactor model, further investigation into best model fit would be beneficial.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\newpage
+
+\hypertarget{references}{%
+\section{References}\label{references}}
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-R-papaja}{}}%
+Aust, F., \& Barth, M. (2022). \emph{{papaja}: {Prepare} reproducible {APA} journal articles with {R Markdown}}. Retrieved from \url{https://github.com/crsh/papaja}
+
+\leavevmode\vadjust pre{\hypertarget{ref-rafael}{}}%
+Ballester-Arnal, R., Gómez-Martínez, S., Llario, M. D.-G., \& Salmerón-Sánchez, P. (2013). Sexual compulsivity scale: Adaptation and validation in the spanish population. \emph{Journal of Sex \& Marital Therapy}, \emph{39}(6), 526--540. \url{https://doi.org/10.1080/0092623X.2012.665816}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-tinylabels}{}}%
+Barth, M. (2022). \emph{{tinylabels}: Lightweight variable labels}. Retrieved from \url{https://cran.r-project.org/package=tinylabels}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-lme4}{}}%
+Bates, D., Mächler, M., Bolker, B., \& Walker, S. (2015). Fitting linear mixed-effects models using {lme4}. \emph{Journal of Statistical Software}, \emph{67}(1), 1--48. \url{https://doi.org/10.18637/jss.v067.i01}
+
+\leavevmode\vadjust pre{\hypertarget{ref-birnbaum}{}}%
+Birnbaum, A. L. (1968). Some latent trait models and their use in inferring an examinee's ability. \emph{Statistical Theories of Mental Test Scores}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-mirt}{}}%
+Chalmers, R. P. (2012). {mirt}: A multidimensional item response theory package for the {R} environment. \emph{Journal of Statistical Software}, \emph{48}(6), 1--29. \url{https://doi.org/10.18637/jss.v048.i06}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Chen2007}{}}%
+Chen, F. F. (2007). Sensitivity of goodness of fit indexes to lack of measurement invariance. \emph{Structural Equation Modeling}, \emph{14(3)}, 464--504. Retrieved from \url{https://doi.org/10.1080/10705510701301834}
+
+\leavevmode\vadjust pre{\hypertarget{ref-usnews}{}}%
+Health.usnews.com. (2010). New diagnostic guidelines for mental illnesses proposed. Retrieved 2022, from \url{https://health.usnews.com/health-news/family-health/brain-and-behavior/articles/2010/02/10/new-diagnostic-guidelines-for-mental-illnesses-proposed}
+
+\leavevmode\vadjust pre{\hypertarget{ref-inbook}{}}%
+Huisman, M., \& Molenaar, I. (2001). Imputation of missing scale data with item response models. \emph{Essays on Item Response Theory}, 221--244. \url{https://doi.org/10.1007/978-1-4613-0169-1_13}
+
+\leavevmode\vadjust pre{\hypertarget{ref-pfanzagl}{}}%
+Johann Pfanzagl, R. H., Hamboker R. (1994). \emph{Parametric statistical theory}. Walter de Gruyter.
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-semTools}{}}%
+Jorgensen, T. D., Pornprasertmanit, S., Schoemann, A. M., \& Rosseel, Y. (2022). \emph{\texttt{semTools}: {U}seful tools for structural equation modeling}. Retrieved from \url{https://CRAN.R-project.org/package=semTools}
+
+\leavevmode\vadjust pre{\hypertarget{ref-kalichman}{}}%
+Kalichman, S. C., \& Rompa, D. (2001). The sexual compulsivity scale: Further development and use with HIV-positive persons. \emph{Journal of Personality Assessment}, \emph{76}(3), 379--395. \url{https://doi.org/10.1207/S15327752JPA7603/_02}
+
+\leavevmode\vadjust pre{\hypertarget{ref-levine}{}}%
+Levine, M. P., \& Troiden, R. R. (1988). The myth of sexual compulsivity. \emph{The Journal of Sex Research}, \emph{25}(3), 347--363. \url{https://doi.org/10.1080/00224498809551467}
+
+\leavevmode\vadjust pre{\hypertarget{ref-li}{}}%
+Li, C.-Y., Romero, S., Bonilha, H. S., Simpson, K. N., Simpson, A. N., Hong, I., \& Velozo, C. A. (2018). Linking existing instruments to develop an activity of daily living item bank. \emph{Evaluation \& the Health Professions}, \emph{41}(1), 25--43. \url{https://doi.org/10.1177/0163278716676873}
+
+\leavevmode\vadjust pre{\hypertarget{ref-li2020}{}}%
+Li, Z. (2020). The power of crossing SIBTEST. \emph{Applied Psychological Measurement}, \emph{44}(5), 393--408.
+
+\leavevmode\vadjust pre{\hypertarget{ref-novick}{}}%
+M. R. Novick, C. L. (1967). Coefficient alpha and the reliability of composite measurements. \emph{Psychometrika}, \emph{32}(1), 1--13.
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-difR}{}}%
+Magis, D., Beland, S., Tuerlinckx, F., \& De Boeck, P. (2010). A general framework and an r package for the detection of dichotomous differential item functioning. \emph{Behavior Research Methods}, \emph{42}, 847--862.
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-eRm}{}}%
+Mair, P., Hatzinger, R., \& Maier, M. J. (2021). \emph{{eRm: Extended Rasch Modeling}}. Retrieved from \url{https://cran.r-project.org/package=eRm}
+
+\leavevmode\vadjust pre{\hypertarget{ref-mayo}{}}%
+Mayo-Clinic. (2022). Compulsive sexual behavior. Retrieved September 26, 2022, from \url{https://www.mayoclinic.org/diseases-conditions/compulsive-sexual-behavior/symptoms-causes/syc-20360434}
+
+\leavevmode\vadjust pre{\hypertarget{ref-mcbride}{}}%
+McBride, K. R., Reece, M., \& Sanders, S. A. (2008). Using the sexual compulsivity scale to predict outcomes of sexual behavior in young adults. \emph{Sexual Addiction \& Compulsivity}, \emph{15}(2), 97--115. \url{https://doi.org/10.1080/10720160802035816}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-base}{}}%
+R Core Team. (2021). \emph{R: A language and environment for statistical computing}. Vienna, Austria: R Foundation for Statistical Computing. Retrieved from \url{https://www.R-project.org/}
+
+\leavevmode\vadjust pre{\hypertarget{ref-rakov}{}}%
+Rakov, T. (1997). \emph{"Scale reliability." Cronbach's coefficient alpha, and violations of}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-raschwebsite}{}}%
+Rasch-website. (2022). Retrieved from \url{https://rasch.org/rmt/rmt82a.htm}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-ltm}{}}%
+Rizopoulos, D. (2006). Ltm: An r package for latent variable modelling and item response theory analyses. \emph{Journal of Statistical Software}, \emph{17}(5), 1--25. Retrieved from \url{https://doi.org/10.18637/jss.v017.i05}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-sirt}{}}%
+Robitzsch, A. (2022). \emph{Sirt: Supplementary item response theory models}. Retrieved from \url{https://CRAN.R-project.org/package=sirt}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-TAM}{}}%
+Robitzsch, A., Kiefer, T., \& Wu, M. (2022). \emph{TAM: Test analysis modules}. Retrieved from \url{https://CRAN.R-project.org/package=TAM}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-lavaan}{}}%
+Rosseel, Y. (2012). {lavaan}: An {R} package for structural equation modeling. \emph{Journal of Statistical Software}, \emph{48}(2), 1--36. \url{https://doi.org/10.18637/jss.v048.i02}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Rubin}{}}%
+Rubin, D. B. (1976). Inference and missing data. \emph{Biometrika}, \emph{63(3)}, 581--592. Retrieved from \url{https://doi.org/10.2307/2335739}
+
+\leavevmode\vadjust pre{\hypertarget{ref-reise}{}}%
+SP Reise, M. M., DS Kim. (2016). Is the bifactor model a better model or is it just better at modeling implausible responses? \emph{Mutlivariate Behavioral Research}, \emph{51}(6), 818--838.
+
+\leavevmode\vadjust pre{\hypertarget{ref-MAR}{}}%
+Sulis, P., I. (2017). Handling missing data in item response theory. Assessing the accuracy of a multiple imputation procedure based on latent class analysis. \emph{Journal of Classification}, \emph{34}, 327--359. Retrieved from \url{https://doi.org/10.1007/s00357-017-9220-3}
+
+\end{CSLReferences}
+
+
+\end{document}
